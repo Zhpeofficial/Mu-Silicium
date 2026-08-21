@@ -2900,7 +2900,7 @@
 
 <img align="right" src="Resources/Pictures/Xiaomi-Pad-6.png" width="500" alt="Preview">
 
-**State:** Inactive <br>
+**State:** Active <br>
 **Codename:** pipa
 
 **Contributors:** [Statzar](https://github.com/Statzar), [N1kroks](https://github.com/N1kroks), [Robotix](https://github.com/Robotix22/), [6adp](https://github.com/6adp)
