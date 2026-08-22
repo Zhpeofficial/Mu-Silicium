@@ -18,6 +18,7 @@
 
 [LibraryClasses]
   UefiBootServicesTableLib
+  UefiDriverEntryPoint
   HobLib
   DebugLib
 

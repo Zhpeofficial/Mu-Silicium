@@ -10,6 +10,7 @@
 
 #include <Uefi.h>
 #include <Library/UefiBootServicesTableLib.h>
+#include <Library/UefiDriverEntryPointLib.h>
 #include <Library/HobLib.h>
 #include <Library/DebugLib.h>
 #include <Protocol/EFIKernelInterface.h>
