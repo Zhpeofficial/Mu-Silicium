@@ -27,12 +27,20 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
+
+      - name: Redirect cmocka from GitLab to GitHub
+        run: git config --global url."https://github.com/clibs/cmocka.git".insteadOf "https://gitlab.com/cmocka/cmocka.git"
+
+      - name: Setup environment
+        run: bash ./setup_env.sh -p apt
+
+      # 如果脚本支持 -d 参数指定设备，就加上；如果不支持，保持原样
       - name: Build UEFI for active devices
-        run: bash ./setup_env.sh -p apt && bash ./build_active_devices.sh -r DEBUG
+        run: bash ./build_active_devices.sh -r DEBUG
 
       - name: Upload UEFI images
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: uefi-images
           path: ./Mu-*
