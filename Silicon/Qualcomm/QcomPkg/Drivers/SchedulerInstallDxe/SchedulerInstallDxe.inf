@@ -16,6 +16,12 @@
   SiliciumPkg/SiliciumPkg.dec
   QcomPkg/QcomPkg.dec
 
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPointLib
+  HobLib
+  DebugLib
+
 [Protocols]
   gEfiKernelProtocolGuid
 
