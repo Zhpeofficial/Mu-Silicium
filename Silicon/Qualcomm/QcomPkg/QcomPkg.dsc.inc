@@ -47,6 +47,7 @@
   # Custom Drivers
   #
   QcomPkg/Drivers/DisplayReEnablerDxe/DisplayReEnablerDxe.inf
+  QcomPkg/Drivers/SchedulerInstallDxe/SchedulerInstallDxe.inf
 
   #
   # Custom Apps
