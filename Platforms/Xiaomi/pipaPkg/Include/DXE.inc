@@ -58,7 +58,6 @@
   INF Binaries/pipa/QcomPkg/Drivers/SPIDxe/SPIDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/SPMIDxe/SPMIDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
-  INF QcomPkg/Drivers/SchedulerInstallDxe/SchedulerInstallDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/TLMMDxe/TLMMDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/FeatureEnablerDxe/FeatureEnablerDxe.inf

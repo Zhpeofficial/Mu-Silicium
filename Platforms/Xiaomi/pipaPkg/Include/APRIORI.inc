@@ -40,7 +40,6 @@ APRIORI DXE {
   INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
 
   INF Binaries/pipa/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
-  INF QcomPkg/Drivers/SchedulerInstallDxe/SchedulerInstallDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
 
   INF FatPkg/EnhancedFatDxe/Fat.inf
