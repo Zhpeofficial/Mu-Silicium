@@ -78,5 +78,4 @@
   #
   ConfigurationMapLib|pipaPkg/Library/ConfigurationMapLib/ConfigurationMapLib.inf
 
-[Components]
-  pipaPkg/Drivers/MemFixDxe/MemFixDxe.inf
+
