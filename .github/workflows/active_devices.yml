@@ -29,8 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Redirect cmocka from GitLab to GitHub
-        run: git config --global url."https://github.com/clibs/cmocka.git".insteadOf "https://gitlab.com/cmocka/cmocka.git"
+      
 
       - name: Setup environment
         run: bash ./setup_env.sh -p apt
