@@ -77,6 +77,3 @@
   # QCOM Libraries
   #
   ConfigurationMapLib|pipaPkg/Library/ConfigurationMapLib/ConfigurationMapLib.inf
-
-[Components]
-  QcomPkg/Drivers/SchedulerInstallDxe/SchedulerInstallDxe.inf
