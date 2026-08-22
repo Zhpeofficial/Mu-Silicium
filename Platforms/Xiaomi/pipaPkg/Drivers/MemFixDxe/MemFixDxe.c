@@ -8,6 +8,7 @@
 
 #include <Uefi.h>
 #include <Library/UefiBootServicesTableLib.h>
+#include <Library/UefiDxeServicesTableLib.h>
 #include <Library/DebugLib.h>
 
 STATIC
