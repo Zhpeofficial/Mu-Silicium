@@ -78,5 +78,10 @@
   #
   ConfigurationMapLib|pipaPkg/Library/ConfigurationMapLib/ConfigurationMapLib.inf
 
+  #
+  # EDK2 Libraries
+  #
+  UefiDriverEntryPoint|MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
+
 [Components]
   QcomPkg/Drivers/SchedulerInstallDxe/SchedulerInstallDxe.inf
