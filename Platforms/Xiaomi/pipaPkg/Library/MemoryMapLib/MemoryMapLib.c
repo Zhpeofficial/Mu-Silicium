@@ -48,10 +48,7 @@ gMemoryDescriptor[] = {
   {"TLMM_SOUTH",        0x0F500000, 0x00300000, AddDev, MMAP_IO, UNCACHEABLE, MmIO,   NS_DEVICE},
   {"TLMM_NORTH",        0x0F900000, 0x00300000, AddDev, MMAP_IO, UNCACHEABLE, MmIO,   NS_DEVICE},
   {"SMMU",              0x15000000, 0x000D0000, AddDev, MMAP_IO, UNCACHEABLE, MmIO,   NS_DEVICE},
-  {"APSS_HM",           0x17800000, 0x0d981000, AddDev, MMAP_IO, UNCACHEABLE, MmIO,   NS_DEVICE},
-
-  // 4GB High Memory Boundary (for Windows bootmgfw.efi)
-  {"Upper DDR Conv",    0x100000000, 0x00200000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv, WRITE_BACK_XN}
+  {"APSS_HM",           0x17800000, 0x0d981000, AddDev, MMAP_IO, UNCACHEABLE, MmIO,   NS_DEVICE}
 };
 
 VOID
