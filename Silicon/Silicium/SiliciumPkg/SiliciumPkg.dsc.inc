@@ -167,6 +167,7 @@
   # Memory Libraries
   #
   ArmMmuLib|UefiCpuPkg/Library/ArmMmuLib/ArmMmuBaseLib.inf
+  ArmMmuLib|UefiCpuPkg/Library/ArmMmuLib/ArmMmuPeiLib.inf
   CacheMaintenanceLib|ArmPkg/Library/ArmCacheMaintenanceLib/ArmCacheMaintenanceLib.inf
   MemoryInitPeiLib|SiliciumPkg/Library/MemoryInitPeiLib/MemoryInitPeiLib.inf
   MemoryMapHelperLib|SiliciumPkg/Library/MemoryMapHelperLib/MemoryMapHelperLib.inf
