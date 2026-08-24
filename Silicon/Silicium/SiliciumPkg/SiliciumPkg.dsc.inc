@@ -127,6 +127,7 @@
   #
   # ARM Libraries
   #
+  ArmPlatformLib|SiliciumPkg/Library/ArmPlatformLib/ArmPlatformLib.inf
   ArmLib|ArmPkg/Library/ArmLib/ArmBaseLib.inf
   ArmSmcLib|MdePkg/Library/ArmSmcLib/ArmSmcLib.inf
   ArmHvcLib|ArmPkg/Library/ArmHvcLib/ArmHvcLib.inf
