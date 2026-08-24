@@ -104,6 +104,7 @@
   #
   gQcomPkgTokenSpaceGuid.PcdDestinationVmCount|0|UINT8|0x0000C100
   gQcomPkgTokenSpaceGuid.PcdFaultyDdrProtocol|FALSE|BOOLEAN|0x0000C101
+  gQcomPkgTokenSpaceGuid.PcdRamPartitionBase|0|UINT64|0x0000A100
 
   #
   # Storage

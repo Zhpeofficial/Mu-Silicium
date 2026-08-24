@@ -39,6 +39,7 @@
   # DDR Memory
   #
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x80000000
+  gQcomPkgTokenSpaceGuid.PcdRamPartitionBase|0xB4500000
 
   #
   # UEFI Stack
