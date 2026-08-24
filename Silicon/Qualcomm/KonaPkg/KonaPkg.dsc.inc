@@ -64,6 +64,7 @@
   # SEC Libraries
   #
   PlatformSecLib|KonaPkg/Library/PlatformSecLib/PlatformSecLib.inf
+  PlatformPrePiLib|KonaPkg/Library/PlatformPrePiLib/PlatformPrePiLib.inf
 
   #
   # ACPI Libraries

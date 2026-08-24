@@ -39,6 +39,10 @@
   # DDR Memory
   #
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x80000000
+  gArmTokenSpaceGuid.PcdSystemMemorySize|0x20000000
+  gArmTokenSpaceGuid.PcdCpuVectorBaseAddress|0x9FF8C000
+  gEmbeddedTokenSpaceGuid.PcdPrePiStackBase|0x9FF90000
+  gEmbeddedTokenSpaceGuid.PcdPrePiStackSize|0x00040000
   gQcomPkgTokenSpaceGuid.PcdRamPartitionBase|0xB4500000
 
   #

@@ -113,6 +113,7 @@
   gEfiMdeModulePkgTokenSpaceGuid.PcdInstallAcpiSdtProtocol|TRUE
 
   gEmbeddedTokenSpaceGuid.PcdPrePiProduceMemoryTypeInformationHob|TRUE
+  gEmbeddedTokenSpaceGuid.PcdPrePiCpuIoSize|0
 
 !include SiliciumPkg/SecureBoot-Keys.inc
 !include MdePkg/MdeLibs.dsc.inc
@@ -375,7 +376,7 @@
   #
   # SEC
   #
-  SiliciumPkg/Sec/Sec.inf {
+  SiliciumPkg/PrePi/PrePi.inf {
     <LibraryClasses>
       NULL|MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf
   }
