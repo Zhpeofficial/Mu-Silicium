@@ -342,6 +342,7 @@
   PrePiHobListPointerLib|ArmPlatformPkg/Library/PrePiHobListPointerLib/PrePiHobListPointerLib.inf
   SortLib|MdeModulePkg/Library/BaseSortLib/BaseSortLib.inf
 
+  ArmMmuLib|UefiCpuPkg/Library/ArmMmuLib/ArmMmuPeiLib.inf
 [LibraryClasses.common.DXE_CORE]
   DxeCoreEntryPoint|MdePkg/Library/DxeCoreEntryPoint/DxeCoreEntryPoint.inf
   ExtractGuidedSectionLib|MdePkg/Library/DxeExtractGuidedSectionLib/DxeExtractGuidedSectionLib.inf
@@ -382,6 +383,8 @@
   #
   # DXE Core
   #
+  SiliciumPkg/Drivers/PageTableMemoryAllocationDxe/PageTableMemoryAllocationDxe.inf
+
   MdeModulePkg/Core/Dxe/DxeMain.inf
 
   #

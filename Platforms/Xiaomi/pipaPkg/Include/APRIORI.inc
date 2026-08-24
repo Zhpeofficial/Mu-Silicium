@@ -12,6 +12,7 @@ APRIORI DXE {
   INF EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
   INF ArmPkg/Drivers/TimerDxe/TimerDxe.inf
 
+  INF SiliciumPkg/Drivers/PageTableMemoryAllocationDxe/PageTableMemoryAllocationDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/SmemDxe/SmemDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/DALSYSDxe/DALSYSDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/HWIODxe/HWIODxe.inf
@@ -42,11 +43,9 @@ APRIORI DXE {
   INF Binaries/pipa/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
 
-  INF FatPkg/EnhancedFatDxe/Fat.inf
-
-  INF Binaries/pipa/QcomPkg/Drivers/TzDxe/TzDxeLA.inf
-
   INF MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf
+
+  INF FatPkg/EnhancedFatDxe/Fat.inf
 
   INF Binaries/pipa/QcomPkg/Drivers/FeatureEnablerDxe/FeatureEnablerDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/QcomWDogDxe/QcomWDogDxe.inf

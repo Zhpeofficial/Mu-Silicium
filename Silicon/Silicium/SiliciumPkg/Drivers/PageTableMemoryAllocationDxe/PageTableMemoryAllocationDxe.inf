@@ -1,0 +1,36 @@
+## @file
+#  PageTableMemoryAllocationDxe.inf
+#
+#  Pre-allocate page table memory and install the page table memory
+#  allocation protocol used by ArmMmuLib.
+#
+#  Copyright (C) Microsoft Corporation. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PageTableMemoryAllocationDxe
+  FILE_GUID                      = 3B7A5E62-1A54-4A60-9A3E-7F6E8C4A1D29
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PageTableMemoryAllocationDxeEntry
+
+[Sources]
+  PageTableMemoryAllocationDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  UefiCpuPkg/UefiCpuPkg.dec
+  SiliciumPkg/SiliciumPkg.dec
+
+[LibraryClasses]
+  DebugLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+
+[Protocols]
+  gArmPageTableMemoryAllocationProtocolGuid
+
+[Depex]
+  TRUE
