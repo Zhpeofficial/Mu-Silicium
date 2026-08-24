@@ -21,4 +21,4 @@
   MemoryAllocationLib
 
 [Protocols]
-  gEfiSMEMProtocolGuid
+  gEfiRamPartitionProtocolGuid
