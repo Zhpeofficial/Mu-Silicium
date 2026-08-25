@@ -55,7 +55,8 @@ HandleRamRange (
   // Map RAM Range
   Status = MapMemoryRegion (Base, Length, EfiConventionalMemory);
   if (EFI_ERROR (Status)) {
-    DEBUG ((EFI_D_ERROR, "Failed to Map RAM Range: 0x%llx - 0x%llx! Status = %r\n", Base, Length, Status));
+    // Ranges that already exist (low DDR, added from HOBs) are fine to skip.
+    DEBUG ((EFI_D_WARN, "Skip RAM Range: 0x%llx - 0x%llx! Status = %r\n", Base, Length, Status));
     return;
   }
 
@@ -207,10 +208,14 @@ ManageRam (
   PerformQuickSort (EfiMemoryMap, MEMORY_DESCRIPTOR_LIST_SIZE (EfiMemoryMapSize, DescriptorSize), DescriptorSize,            CompareMemoryRegions);
   PerformQuickSort (MemoryRange,  MemoryRangeCount,                                               sizeof (EFI_MEMORY_RANGE), CompareMemoryRanges);
 
-  // Go thru each Memory Range
+  // Go thru each Memory Range; map each SYS_MEMORY partition directly so the
+  // Upper DDR (never present in the initial HOBs) gets added & MMU-mapped.
   for (UINT8 i = 0; i < MemoryRangeCount; i++) {
-    // Parse Memory Range
+    // Parse Memory Range (maps free gaps within the low DDR)
     ParseMemoryRange (MemoryRange[i].Address, (EFI_PHYSICAL_ADDRESS)(MemoryRange[i].Address + MemoryRange[i].Length));
+
+    // Additionally map the whole partition directly (Upper DDR has no descriptors yet)
+    HandleRamRange (MemoryRange[i].Address, MemoryRange[i].Length);
   }
 
 cleanup:

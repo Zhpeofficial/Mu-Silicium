@@ -12,6 +12,7 @@
 #define RAM_PART_MAGIC1                 0x9DA5E0A8
 #define RAM_PART_MAGIC2                 0xAF9EC4E2
 #define RAM_NUM_PART_ENTRIES            32
+#define RAM_PART_SYS_MEMORY             1
 
 typedef struct {
   CHAR8   Name[16];
@@ -47,6 +48,7 @@ typedef struct {
 typedef struct {
   UINT64  Base;
   UINT64  AvailableLength;
+  UINT32  Type;
 } RamPartitionEntry;
 
 //
@@ -71,15 +73,20 @@ GetUsableMemoryRanges (
     goto cleanup;
   }
 
-  // Populate Memory Ranges
+  // Populate Memory Ranges (only RAM_PART_SYS_MEMORY partitions with space)
+  UINT32 Count = 0;
   for (UINT32 i = 0; i < RamPartitionCount; i++) {
-    LocalRange[i].Address = RamPartition[i].Base;
-    LocalRange[i].Length  = RamPartition[i].AvailableLength;
+    if (RamPartition[i].Type != RAM_PART_SYS_MEMORY || RamPartition[i].AvailableLength == 0) {
+      continue;
+    }
+    LocalRange[Count].Address = RamPartition[i].Base;
+    LocalRange[Count].Length  = RamPartition[i].AvailableLength;
+    Count++;
   }
 
   // Pass Memory Range Details
   *Range      = LocalRange;
-  *RangeCount = RamPartitionCount;
+  *RangeCount = (UINT8)Count;
 
 cleanup:
   // Free Buffer
@@ -134,6 +141,7 @@ GetRamPartitions (
   for (i = 0; i < RamPartitionCount; i++) {
     RamPartition[i].Base           = Table->RamPartitionEntry[i].Base;
     RamPartition[i].AvailableLength = Table->RamPartitionEntry[i].AvailableLength;
+    RamPartition[i].Type           = Table->RamPartitionEntry[i].Type;
     // DIAG: dump each partition (Type/Base/Length/AvailableLength)
     DEBUG ((EFI_D_WARN,
       "RamManager: Part[%d] Type=%d Base=0x%llx Len=0x%llx Avail=0x%llx Name=%.16a\n",
