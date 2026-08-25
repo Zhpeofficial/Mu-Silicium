@@ -25,6 +25,8 @@
   SiliciumPkg/SiliciumPkg.dec
 
 [LibraryClasses]
+  BaseLib
+  BaseMemoryLib
   DebugLib
   MemoryAllocationLib
   UefiBootServicesTableLib
