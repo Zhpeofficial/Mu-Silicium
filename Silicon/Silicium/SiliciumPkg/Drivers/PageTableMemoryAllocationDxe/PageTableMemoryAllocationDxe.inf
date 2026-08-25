@@ -30,6 +30,7 @@
   DebugLib
   MemoryAllocationLib
   UefiBootServicesTableLib
+  UefiDriverEntryPoint
 
 [Protocols]
   gArmPageTableMemoryAllocationProtocolGuid
