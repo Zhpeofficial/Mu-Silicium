@@ -3,12 +3,47 @@
 #include <Library/MemoryAllocationLib.h>
 #include <Library/RamManagerLib.h>
 
-#include <Protocol/EFIRamPartition.h>
+#include <Protocol/EFISmem.h>
+
+//
+// SMEM RAM Partition Table (read directly from SMEM, matching v2.7 RamPartitionTableLib)
+//
+#define SMEM_USABLE_RAM_PARTITION_TABLE 402
+#define RAM_PART_MAGIC1                 0x9DA5E0A8
+#define RAM_PART_MAGIC2                 0xAF9EC4E2
+#define RAM_NUM_PART_ENTRIES            32
+
+typedef struct {
+  CHAR8   Name[16];
+  UINT64  Base;
+  UINT64  Length;
+  UINT32  Attribute;
+  UINT32  Category;
+  UINT32  Domain;
+  UINT32  Type;
+  UINT32  NumPartitions;
+  UINT32  HWInfo;
+  UINT8   HighestBankBit;
+  UINT8   Reserved0;
+  UINT8   Reserved1;
+  UINT8   Reserved2;
+  UINT32  MinPasrSize;
+  UINT64  AvailableLength;
+} RAM_PARTITION_ENTRY;
+
+typedef struct {
+  UINT32               Magic1;
+  UINT32               Magic2;
+  UINT32               Version;
+  UINT32               Reserved1;
+  UINT32               NumPartitions;
+  UINT32               Reserved2;
+  RAM_PARTITION_ENTRY  RamPartitionEntry[RAM_NUM_PART_ENTRIES];
+} RAM_PARTITION_TABLE;
 
 //
 // Global Variables
 //
-STATIC EFI_RAMPARTITION_PROTOCOL *mRamPartitionProtocol;
 STATIC RamPartitionEntry         *RamPartition;
 STATIC UINT32                     RamPartitionCount;
 
@@ -51,21 +86,34 @@ GetRamPartitions (
   IN EFI_HANDLE        ImageHandle,
   IN EFI_SYSTEM_TABLE *SystemTable)
 {
-  EFI_STATUS Status;
+  EFI_STATUS           Status;
+  EFI_SMEM_PROTOCOL   *SMEMProtocol = NULL;
+  RAM_PARTITION_TABLE *Table        = NULL;
+  UINT32               SmemSize     = 0;
+  UINT32               i;
 
-  // Locate RAM Partition Protocol
-  Status = gBS->LocateProtocol (&gEfiRamPartitionProtocolGuid, NULL, (VOID *)&mRamPartitionProtocol);
+  // Locate SMEM Protocol
+  Status = gBS->LocateProtocol (&gEfiSMEMProtocolGuid, NULL, (VOID *)&SMEMProtocol);
   if (EFI_ERROR (Status)) {
-    DEBUG ((EFI_D_ERROR, "Failed to Locate RAM Partition Protocol!\n"));
+    DEBUG ((EFI_D_ERROR, "Failed to Locate SMEM Protocol! Status = %r\n", Status));
     return Status;
   }
 
-  // Get RAM Partition Count
-  Status = mRamPartitionProtocol->GetRamPartitions (mRamPartitionProtocol, NULL, &RamPartitionCount);
-  if (EFI_ERROR (Status) && Status != EFI_BUFFER_TOO_SMALL) {
-    DEBUG ((EFI_D_ERROR, "Failed to get the Amount of RAM Partitions!\n"));
+  // Get the RAM Partition Table directly from SMEM (item 402)
+  Status = SMEMProtocol->GetFunc (SMEM_USABLE_RAM_PARTITION_TABLE, &SmemSize, (VOID *)&Table);
+  if (EFI_ERROR (Status)) {
+    DEBUG ((EFI_D_ERROR, "Failed to get RAM Partition Table! Status = %r\n", Status));
     return Status;
   }
+
+  // Validate the table magic values
+  if (Table->Magic1 != RAM_PART_MAGIC1 || Table->Magic2 != RAM_PART_MAGIC2) {
+    DEBUG ((EFI_D_ERROR, "RAM Partition Table Magic mismatch!\n"));
+    return EFI_NOT_FOUND;
+  }
+
+  // Record the number of partitions
+  RamPartitionCount = Table->NumPartitions;
 
   // Allocate Memory
   RamPartition = AllocateZeroPool (sizeof (RamPartitionEntry) * RamPartitionCount);
@@ -74,11 +122,10 @@ GetRamPartitions (
     return EFI_OUT_OF_RESOURCES;
   }
 
-  // Get RAM Partitions
-  Status = mRamPartitionProtocol->GetRamPartitions (mRamPartitionProtocol, RamPartition, &RamPartitionCount);
-  if (EFI_ERROR (Status)) {
-    DEBUG ((EFI_D_ERROR, "Failed to get RAM Partitions!\n"));
-    return Status;
+  // Copy partition base and available length (this catches the Upper DDR too)
+  for (i = 0; i < RamPartitionCount; i++) {
+    RamPartition[i].Base           = Table->RamPartitionEntry[i].Base;
+    RamPartition[i].AvailableLength = Table->RamPartitionEntry[i].AvailableLength;
   }
 
   return EFI_SUCCESS;
