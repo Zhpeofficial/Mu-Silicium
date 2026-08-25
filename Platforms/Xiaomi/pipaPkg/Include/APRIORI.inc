@@ -27,6 +27,7 @@ APRIORI DXE {
   INF Binaries/pipa/QcomPkg/Drivers/PdcDxe/PdcDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/VcsDxe/VcsDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/ClockDxe/ClockDxe.inf
+      INF QcomPkg/Drivers/ClockSpeedUpDxe/ClockSpeedUpDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/SPMIDxe/SPMIDxe.inf
   INF Binaries/pipa/QcomPkg/Drivers/ShmBridgeDxe/ShmBridgeDxeLA.inf
   INF Binaries/pipa/QcomPkg/Drivers/TzDxe/ScmDxeLA.inf

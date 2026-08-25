@@ -52,6 +52,13 @@
   gArmPlatformTokenSpaceGuid.PcdCPUCorePrimaryStackSize|0x40000
 
   #
+  # Clocks (ClockSpeedUpDxe)
+  #
+  gArmPlatformTokenSpaceGuid.PcdClusterCount|3
+  gQcomPkgTokenSpaceGuid.PcdHasLevel3Cache|TRUE
+  gQcomPkgTokenSpaceGuid.PcdMaxFreqSupported|TRUE
+
+  #
   # SMBIOS
   #
   gSiliciumPkgTokenSpaceGuid.PcdSmbiosSystemManufacturer|"Xiaomi"
