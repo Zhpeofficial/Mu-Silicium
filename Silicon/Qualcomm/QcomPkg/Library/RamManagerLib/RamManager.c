@@ -42,6 +42,14 @@ typedef struct {
 } RAM_PARTITION_TABLE;
 
 //
+// Simplified RAM partition entry (Base + AvailableLength) for the output list
+//
+typedef struct {
+  UINT64  Base;
+  UINT64  AvailableLength;
+} RamPartitionEntry;
+
+//
 // Global Variables
 //
 STATIC RamPartitionEntry         *RamPartition;
