@@ -39,10 +39,6 @@
   # DDR Memory
   #
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x80000000
-  gArmTokenSpaceGuid.PcdSystemMemorySize|0x20000000
-  gArmTokenSpaceGuid.PcdCpuVectorBaseAddress|0x9FF8C000
-  gEmbeddedTokenSpaceGuid.PcdPrePiStackBase|0x9FF90000
-  gEmbeddedTokenSpaceGuid.PcdPrePiStackSize|0x00040000
   gQcomPkgTokenSpaceGuid.PcdRamPartitionBase|0xB4500000
 
   #
@@ -50,13 +46,6 @@
   #
   gArmPlatformTokenSpaceGuid.PcdCPUCoresStackBase|0x9FF90000
   gArmPlatformTokenSpaceGuid.PcdCPUCorePrimaryStackSize|0x40000
-
-  #
-  # Clocks (ClockSpeedUpDxe)
-  #
-  gArmPlatformTokenSpaceGuid.PcdClusterCount|3
-  gQcomPkgTokenSpaceGuid.PcdHasLevel3Cache|TRUE
-  gQcomPkgTokenSpaceGuid.PcdMaxFreqSupported|TRUE
 
   #
   # SMBIOS
@@ -80,7 +69,6 @@
   gQcomPkgTokenSpaceGuid.PcdPlatformType|"LA"
 
 [LibraryClasses]
-  DeviceMemoryMapLib|pipaPkg/Library/DeviceMemoryMapLib/DeviceMemoryMapLib.inf
   #
   # Memory Libraries
   #

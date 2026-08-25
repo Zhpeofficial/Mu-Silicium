@@ -45,4 +45,3 @@
 [Components]
     QcomPkg/Drivers/DisplayReEnablerDxe/DisplayReEnablerDxe.inf
     QcomPkg/Applications/MassStorage/MassStorage.inf
-    QcomPkg/Drivers/ClockSpeedUpDxe/ClockSpeedUpDxe.inf

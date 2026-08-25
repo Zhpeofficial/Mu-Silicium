@@ -95,9 +95,6 @@
   #
   gEfiMdeModulePkgTokenSpaceGuid.PcdConInConnectOnDemand|TRUE
 
-[PcdsFixedAtBuild.AArch64]
-  gEmbeddedTokenSpaceGuid.PcdPrePiCpuIoSize|44
-
 [PcdsDynamicExDefault]
   gMsGraphicsPkgTokenSpaceGuid.PcdPostBackgroundColoringSkipCount|0
 
@@ -129,8 +126,6 @@
   #
   # ARM Libraries
   #
-  ArmPlatformStackLib|ArmPlatformPkg/Library/ArmPlatformStackLib/ArmPlatformStackLib.inf
-  ArmPlatformLib|SiliciumPkg/Library/ArmPlatformLib/ArmPlatformLib.inf
   ArmLib|ArmPkg/Library/ArmLib/ArmBaseLib.inf
   ArmSmcLib|MdePkg/Library/ArmSmcLib/ArmSmcLib.inf
   ArmHvcLib|ArmPkg/Library/ArmHvcLib/ArmHvcLib.inf
@@ -380,7 +375,7 @@
   #
   # SEC
   #
-  SiliciumPkg/PrePi/PrePi.inf {
+  SiliciumPkg/Sec/Sec.inf {
     <LibraryClasses>
       NULL|MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf
   }
