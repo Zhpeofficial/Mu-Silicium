@@ -21,7 +21,7 @@
   #
   # Memory Libraries
   #
-  RamManagerLib|QcomPkg/Library/RamManagerLib/RamManagerLib.inf
+  RamPartitionTableLib|QcomPkg/Library/RamPartitionTableLib/RamPartitionTableLib.inf
   RfsProtectionLib|QcomPkg/Library/RfsProtectionLib/RfsProtectionLib.inf
 
   #
@@ -45,3 +45,4 @@
 [Components]
     QcomPkg/Drivers/DisplayReEnablerDxe/DisplayReEnablerDxe.inf
     QcomPkg/Applications/MassStorage/MassStorage.inf
+    QcomPkg/Drivers/DynamicRamDxe/DynamicRamDxe.inf
