@@ -134,7 +134,17 @@ GetRamPartitions (
   for (i = 0; i < RamPartitionCount; i++) {
     RamPartition[i].Base           = Table->RamPartitionEntry[i].Base;
     RamPartition[i].AvailableLength = Table->RamPartitionEntry[i].AvailableLength;
+    // DIAG: dump each partition (Type/Base/Length/AvailableLength)
+    DEBUG ((EFI_D_WARN,
+      "RamManager: Part[%d] Type=%d Base=0x%llx Len=0x%llx Avail=0x%llx Name=%.16a\n",
+      i,
+      Table->RamPartitionEntry[i].Type,
+      (unsigned long long)Table->RamPartitionEntry[i].Base,
+      (unsigned long long)Table->RamPartitionEntry[i].Length,
+      (unsigned long long)Table->RamPartitionEntry[i].AvailableLength,
+      Table->RamPartitionEntry[i].Name));
   }
+  DEBUG ((EFI_D_WARN, "RamManager: NumPartitions=%d\n", RamPartitionCount));
 
   return EFI_SUCCESS;
 }
