@@ -95,6 +95,9 @@
   #
   gEfiMdeModulePkgTokenSpaceGuid.PcdConInConnectOnDemand|TRUE
 
+[PcdsFixedAtBuild.AArch64]
+  gEmbeddedTokenSpaceGuid.PcdPrePiCpuIoSize|44
+
 [PcdsDynamicExDefault]
   gMsGraphicsPkgTokenSpaceGuid.PcdPostBackgroundColoringSkipCount|0
 
@@ -113,7 +116,6 @@
   gEfiMdeModulePkgTokenSpaceGuid.PcdInstallAcpiSdtProtocol|TRUE
 
   gEmbeddedTokenSpaceGuid.PcdPrePiProduceMemoryTypeInformationHob|TRUE
-  gEmbeddedTokenSpaceGuid.PcdPrePiCpuIoSize|0
 
 !include SiliciumPkg/SecureBoot-Keys.inc
 !include MdePkg/MdeLibs.dsc.inc
