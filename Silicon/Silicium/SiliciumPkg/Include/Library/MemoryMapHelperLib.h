@@ -37,4 +37,11 @@ LocateMemoryRegionByAddress (
   OUT EFI_MEMORY_REGION_DESCRIPTOR *MemoryRegionDescriptor
   );
 
+//
+// v2.7 interop aliases: v2.7 renamed these to LocateMemoryMapArea*(). Alias them
+// so the v2.7 PrePi/ArmPlatformLib sources compile against zhpe's MemoryMapLib.
+//
+#define LocateMemoryMapAreaByName    LocateMemoryRegionByName
+#define LocateMemoryMapAreaByAddress LocateMemoryRegionByAddress
+
 #endif /* _MEMORY_MAP_HELPER_LIB_H_ */

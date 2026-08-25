@@ -120,4 +120,11 @@ GetMemoryMap (
   OUT EFI_MEMORY_REGION_DESCRIPTOR **MemoryDescriptor,
   OUT UINT8                         *MemoryDescriptorCount);
 
+//
+// v2.7 interop aliases: the v2.7 DeviceMemoryMap renamed this structure to
+// ARM_MEMORY_REGION_DESCRIPTOR_EX. The layout is identical, so alias it here
+// so the v2.7 PrePi sources compile against zhpe's memory map libraries.
+//
+typedef EFI_MEMORY_REGION_DESCRIPTOR ARM_MEMORY_REGION_DESCRIPTOR_EX;
+
 #endif /* _MEMORY_MAP_LIB_H_ */
