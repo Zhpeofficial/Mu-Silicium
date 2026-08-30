@@ -28,8 +28,9 @@ jobs:
         run: bash ./setup_env.sh -p apt
 
       - name: Build pipa UEFI
-        run: export STUART_BUILD_FLAGS="-D DISABLE_OVERRIDE_VALIDATION=1"
-        run: bash ./build_uefi.sh -d pipa -r DEBUG
+        run: |
+          export STUART_BUILD_FLAGS="-D DISABLE_OVERRIDE_VALIDATION=1"
+          bash ./build_uefi.sh -d pipa -r DEBUG
 
       - name: Upload pipa UEFI image
         uses: actions/upload-artifact@v4
