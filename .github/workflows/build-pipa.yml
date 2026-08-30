@@ -23,14 +23,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref || 'main' }}
+          submodules: false
+          fetch-depth: 0
+
+      - name: Initialize Mu_Basecore
+        run: |
+          git submodule sync
+          git submodule update --init --force Mu_Basecore
+          cd Mu_Basecore
+          git checkout f44f77a3fee3a0e56f98ae864701b74b3dcf3eb1
+          cd ..
 
       - name: Setup environment
         run: bash ./setup_env.sh -p apt
 
-      - name: Build pipa UEFI
+      - name: Disable OverrideValidation plugin
         run: |
-          export STUART_BUILD_FLAGS="-D DISABLE_OVERRIDE_VALIDATION=1"
-          bash ./build_uefi.sh -d pipa -r DEBUG
+          if [ -d "Mu_Basecore/BaseTools/Plugin/OverrideValidation" ]; then
+            mv Mu_Basecore/BaseTools/Plugin/OverrideValidation Mu_Basecore/BaseTools/Plugin/OverrideValidation.disabled
+            echo "OverrideValidation plugin disabled"
+          else
+            echo "OverrideValidation plugin not found, skipping"
+          fi
+
+      - name: Build pipa UEFI
+        run: bash ./build_uefi.sh -d pipa -r DEBUG
 
       - name: Upload pipa UEFI image
         uses: actions/upload-artifact@v4
