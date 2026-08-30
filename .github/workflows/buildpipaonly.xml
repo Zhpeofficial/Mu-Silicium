@@ -1,0 +1,31 @@
+name: Build pipa UEFI
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'Binaries/pipa/**'
+      - 'Platforms/Xiaomi/pipaPkg/**'
+      - 'Silicon/Qualcomm/QcomPkg/**'
+      - 'Silicon/Silicium/**'
+      - 'Mu_Basecore/**'
+      - 'Common/**'
+  workflow_dispatch:
+
+jobs:
+  build-pipa:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup environment
+        run: bash ./setup_env.sh -p apt
+
+      - name: Build pipa UEFI
+        run: python3 ./build_uefi.py -d pipa -r DEBUG -c
+
+      - name: Upload pipa UEFI image
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipa-uefi
+          path: ./Mu-pipa*
+          compression-level: 9
