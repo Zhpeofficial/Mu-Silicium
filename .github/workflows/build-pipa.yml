@@ -1,6 +1,14 @@
 name: Build pipa UEFI
-
 on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'Binaries/pipa/**'
+      - 'Platforms/Xiaomi/pipaPkg/**'
+      - 'Silicon/Qualcomm/QcomPkg/**'
+      - 'Silicon/Silicium/**'
+      - 'Mu_Basecore/**'
+      - 'Common/**'
   workflow_dispatch:
     inputs:
       ref:
@@ -10,36 +18,14 @@ on:
 
 jobs:
   build-pipa:
-    runs-on: ubuntu-22.04   # 使用 22.04，避免 24.04 中 nuget 缺失问题
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.ref }}
-          submodules: 'recursive'
-          fetch-depth: 0
-
-      # 直接安装必需依赖，不依赖 setup_env.sh（避免 nuget 等缺失）
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-venv python3-pip git build-essential uuid-dev iasl nasm gcc-aarch64-linux-gnu
-
-      - name: Setup Python virtual environment
-        run: |
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install -r pip-requirements.txt
+          ref: ${{ github.event.inputs.ref || 'main' }}
 
       - name: Build pipa UEFI
-        run: |
-          source venv/bin/activate
-          # 检测构建脚本，优先使用 build_uefi.py，否则用 build_uefi.sh
-          if [ -f "build_uefi.py" ]; then
-            python3 build_uefi.py -d pipa -r DEBUG -c
-          else
-            # build_uefi.sh 不支持 -c 参数，去掉它
-            bash build_uefi.sh -d pipa -r DEBUG
-          fi
+        run: bash ./build_uefi.sh -d pipa -r DEBUG
 
       - name: Upload pipa UEFI image
         uses: actions/upload-artifact@v4
