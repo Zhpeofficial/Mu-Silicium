@@ -1,0 +1,44 @@
+name: Build pipa UEFI
+on:
+  workflow_dispatch:
+    inputs:
+      device:
+        description: '设备代号 (例如 pipa, nabu)'
+        required: true
+        default: 'pipa'
+      ref:
+        description: '分支或标签 (例如 main, v2.7)'
+        required: true
+        default: 'pipaport'
+
+jobs:
+  build-pipa:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
+          submodules: 'recursive'
+          fetch-depth: 0
+
+      - name: List root directory
+        run: ls -la
+
+      - name: Setup environment
+        run: bash ./setup_env.sh -p apt
+
+      - name: Build pipa UEFI (try build_uefi.py)
+        id: build_uefi
+        continue-on-error: true
+        run: python3 ./build_uefi.py -d ${{ github.event.inputs.device }} -r DEBUG -c
+
+      - name: Build pipa UEFI (try build.py as fallback)
+        if: steps.build_uefi.outcome == 'failure'
+        run: python3 ./build.py -d ${{ github.event.inputs.device }} -r DEBUG
+
+      - name: Upload pipa UEFI image
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipa-uefi
+          path: ./Mu-pipa*
+          compression-level: 9
