@@ -1,47 +1,49 @@
-name: Build Mu-Silicium UEFI
+name: Build UEFI for specified device
 
 on:
   workflow_dispatch:
     inputs:
       device:
-        description: '设备代号 (例如 pipa, nabu, ...)'
+        description: '设备代号 (例如 pipa, nabu)'
         required: true
         default: 'pipa'
         type: string
       ref:
-        description: 'Git ref (branch/tag/commit) 可选，留空则使用默认分支'
-        required: false
-        default: ''
+        description: '分支或标签 (例如 main, v2.7)'
+        required: true
+        default: 'main'
         type: string
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout repository
+      - name: Checkout specified ref
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.ref || 'main' }}
+          ref: ${{ github.event.inputs.ref }}
           submodules: 'recursive'
+          fetch-depth: 0
 
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-venv python3-pip git build-essential uuid-dev iasl nasm gcc-aarch64-linux-gnu
 
-      - name: Setup Python venv
+      - name: Setup Python virtual environment
         run: |
           python3 -m venv venv
           source venv/bin/activate
           pip install -r pip-requirements.txt
 
-      - name: Build UEFI
+      - name: Build UEFI firmware
         run: |
           source venv/bin/activate
-          python3 build_uefi.py -d ${{ github.event.inputs.device }}
+          python3 build_uefi.py -d ${{ github.event.inputs.device }} -r DEBUG
 
-      - name: Upload artifacts
+      - name: Upload firmware image
         uses: actions/upload-artifact@v4
         with:
           name: Mu-${{ github.event.inputs.device }}
-          path: Build/*/RELEASE_*/FV/*.img
+          path: Build/*/DEBUG_*/FV/*.img
+          compression-level: 9
