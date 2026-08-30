@@ -24,6 +24,9 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref || 'main' }}
 
+      - name: Setup environment
+        run: bash ./setup_env.sh -p apt
+
       - name: Build pipa UEFI
         run: bash ./build_uefi.sh -d pipa -r DEBUG
 
