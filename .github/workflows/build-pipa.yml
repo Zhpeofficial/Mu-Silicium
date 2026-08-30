@@ -1,0 +1,47 @@
+name: Build Mu-Silicium UEFI
+
+on:
+  workflow_dispatch:
+    inputs:
+      device:
+        description: '设备代号 (例如 pipa, nabu, ...)'
+        required: true
+        default: 'pipa'
+        type: string
+      ref:
+        description: 'Git ref (branch/tag/commit) 可选，留空则使用默认分支'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || 'main' }}
+          submodules: 'recursive'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-venv python3-pip git build-essential uuid-dev iasl nasm gcc-aarch64-linux-gnu
+
+      - name: Setup Python venv
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r pip-requirements.txt
+
+      - name: Build UEFI
+        run: |
+          source venv/bin/activate
+          python3 build_uefi.py -d ${{ github.event.inputs.device }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mu-${{ github.event.inputs.device }}
+          path: Build/*/RELEASE_*/FV/*.img
