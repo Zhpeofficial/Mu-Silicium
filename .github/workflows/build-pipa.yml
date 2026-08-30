@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-pipa:
-    runs-on: ubuntu-22.04   # 使用 22.04 避免 nuget/python3-distutils 缺失问题
+    runs-on: ubuntu-22.04   # 使用 22.04，避免 24.04 中 nuget 缺失问题
     steps:
       - uses: actions/checkout@v4
         with:
@@ -18,7 +18,8 @@ jobs:
           submodules: 'recursive'
           fetch-depth: 0
 
-      - name: Install dependencies manually
+      # 直接安装必需依赖，不依赖 setup_env.sh（避免 nuget 等缺失）
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-venv python3-pip git build-essential uuid-dev iasl nasm gcc-aarch64-linux-gnu
@@ -32,11 +33,12 @@ jobs:
       - name: Build pipa UEFI
         run: |
           source venv/bin/activate
-          # 根据分支选择构建脚本
+          # 检测构建脚本，优先使用 build_uefi.py，否则用 build_uefi.sh
           if [ -f "build_uefi.py" ]; then
             python3 build_uefi.py -d pipa -r DEBUG -c
           else
-            bash build_uefi.sh -d pipa -r DEBUG -c
+            # build_uefi.sh 不支持 -c 参数，去掉它
+            bash build_uefi.sh -d pipa -r DEBUG
           fi
 
       - name: Upload pipa UEFI image
